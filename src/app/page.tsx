@@ -16,7 +16,7 @@ export default async function HomePage() {
     <div>
       {/* Hero Section */}
       <section className="section-padding" style={{ 
-        backgroundImage: 'url(https://images.unsplash.com/photo-1515694346937-b97183c03e09?w=1600&auto=format&fit=crop&q=80)',
+        backgroundImage: 'url(/hero-bg.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
@@ -29,7 +29,7 @@ export default async function HomePage() {
         overflow: 'hidden'
       }}>
         {/* Overlay */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(44,62,47,0.55) 0%, rgba(44,62,47,0.65) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(44,62,47,0.45)' }} />
         
         <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <span style={{ color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.8125rem', marginBottom: '1.5rem', fontWeight: 600 }}>
