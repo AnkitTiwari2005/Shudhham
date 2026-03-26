@@ -1,6 +1,7 @@
 "use client"
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
+import { Lock, RotateCcw } from 'lucide-react';
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, subtotal, totalItems } = useCart();
@@ -88,8 +89,8 @@ export default function CartPage() {
                 Proceed to Checkout
               </Link>
               <div style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'var(--on-surface-variant)', textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-                <span>🔒 Secure Checkout</span>
-                <span>↩ 30-Day Returns</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><Lock size={14} /> Secure Checkout</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><RotateCcw size={14} /> 30-Day Returns</span>
               </div>
             </div>
           </div>

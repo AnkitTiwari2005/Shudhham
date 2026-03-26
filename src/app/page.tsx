@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { supabase, seedProductsIfEmpty } from '@/lib/supabase';
 import ProductCard from '@/components/ProductCard';
+import { Leaf, Truck, RotateCcw, FlaskConical, Heart } from 'lucide-react';
 
 export const revalidate = 0;
 
@@ -66,10 +67,10 @@ export default async function HomePage() {
       {/* Trust Badges */}
       <section style={{ borderBottom: '1px solid var(--outline-variant)', padding: '2rem var(--page-gutter)' }}>
         <div className="container" style={{ display: 'flex', justifyContent: 'center', gap: '3rem', flexWrap: 'wrap', fontSize: '0.8125rem', color: 'var(--on-surface-variant)', fontWeight: 500 }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>🌿 100% Organic</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>🚚 Free Shipping over ₹499</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>↩ 30-Day Returns</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>🔬 Lab Tested</span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Leaf size={16} /> 100% Organic</span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Truck size={16} /> Free Shipping over ₹499</span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><RotateCcw size={16} /> 30-Day Returns</span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><FlaskConical size={16} /> Lab Tested</span>
         </div>
       </section>
 
@@ -125,12 +126,12 @@ export default async function HomePage() {
           <h2 className="heading-headline" style={{ marginTop: '0.75rem', marginBottom: '4rem' }}>Nature&apos;s Best, Delivered to You</h2>
           <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
             {[
-              { emoji: '🌿', title: 'Farm to Shelf', desc: 'Direct partnerships with 500+ organic farms across India ensure freshness and fair trade.' },
-              { emoji: '🔬', title: 'Lab Certified', desc: 'Every batch undergoes rigorous third-party testing for potency, heavy metals, and purity.' },
-              { emoji: '💚', title: 'Zero Compromise', desc: 'No fillers, no artificial colors, no preservatives. Just pure, potent botanicals.' }
+              { icon: <Leaf size={32} />, title: 'Farm to Shelf', desc: 'Direct partnerships with 500+ organic farms across India ensure freshness and fair trade.' },
+              { icon: <FlaskConical size={32} />, title: 'Lab Certified', desc: 'Every batch undergoes rigorous third-party testing for potency, heavy metals, and purity.' },
+              { icon: <Heart size={32} />, title: 'Zero Compromise', desc: 'No fillers, no artificial colors, no preservatives. Just pure, potent botanicals.' }
             ].map((item, i) => (
               <div key={i} style={{ padding: '2.5rem 2rem', borderRadius: 'var(--radius-lg)', backgroundColor: 'var(--surface-container-low)', textAlign: 'center' }}>
-                <div style={{ fontSize: '2.5rem', marginBottom: '1.25rem' }}>{item.emoji}</div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.25rem', color: 'var(--primary)' }}>{item.icon}</div>
                 <h3 style={{ fontFamily: 'var(--font-noto-serif)', fontSize: '1.25rem', marginBottom: '0.75rem' }}>{item.title}</h3>
                 <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.875rem', lineHeight: 1.6 }}>{item.desc}</p>
               </div>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { createClientSupabase } from '@/lib/supabase';
 import { useEffect, useState } from 'react';
+import { Package } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function ProfilePage() {
@@ -240,7 +241,7 @@ export default function ProfilePage() {
                   </div>
                 ) : (
                   <div style={{ textAlign: 'center', padding: '4rem 0', backgroundColor: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)' }}>
-                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📦</div>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem', color: 'var(--on-surface-variant)' }}><Package size={40} /></div>
                     <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1.5rem', fontSize: '1.125rem' }}>You haven&apos;t placed any orders yet.</p>
                     <Link href="/products" className="btn-primary">Start your wellness journey</Link>
                   </div>

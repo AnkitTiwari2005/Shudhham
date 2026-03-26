@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { CreditCard, Banknote, ShieldCheck, Lock, RotateCcw } from 'lucide-react';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -53,7 +54,7 @@ function StripeCheckoutForm({ shipping, onSuccess, subtotal }: { shipping: any; 
         className="btn-primary"
         style={{ width: '100%', marginTop: '2rem', padding: '1rem' }}
       >
-        {isProcessing ? 'Processing Payment...' : `Pay ₹${subtotal} Securely 🔒`}
+        {isProcessing ? 'Processing Payment...' : <><Lock size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem' }} />Pay ₹{subtotal} Securely</>}
       </button>
     </form>
   );
@@ -73,7 +74,7 @@ function CODForm({ onSuccess, subtotal }: { onSuccess: () => void; subtotal: num
     <div>
       <div style={{ padding: '1.5rem', backgroundColor: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', marginBottom: '1.5rem' }}>
         <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.9375rem', lineHeight: 1.6 }}>
-          💵 Pay with cash upon delivery. Please have the exact amount of <strong style={{ color: 'var(--primary)' }}>₹{subtotal}</strong> ready.
+          <Banknote size={18} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem' }} /> Pay with cash upon delivery. Please have the exact amount of <strong style={{ color: 'var(--primary)' }}>₹{subtotal}</strong> ready.
         </p>
       </div>
       <button
@@ -208,8 +209,8 @@ export default function PaymentPage() {
 
             <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
               {[
-                { id: 'card', label: '💳 Card / UPI', desc: 'Stripe Secure' },
-                { id: 'cod', label: '💵 Cash on Delivery', desc: 'Pay at door' },
+                { id: 'card', icon: <CreditCard size={18} />, label: 'Card / UPI', desc: 'Stripe Secure' },
+                { id: 'cod', icon: <Banknote size={18} />, label: 'Cash on Delivery', desc: 'Pay at door' },
               ].map(method => (
                 <button
                   key={method.id}
@@ -226,7 +227,7 @@ export default function PaymentPage() {
                     transition: 'all 0.2s',
                   }}
                 >
-                  <div style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.25rem' }}>{method.label}</div>
+                  <div style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>{method.icon} {method.label}</div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--on-surface-variant)' }}>{method.desc}</div>
                 </button>
               ))}
@@ -238,7 +239,7 @@ export default function PaymentPage() {
                 <>
                   {isLoadingIntent ? (
                     <div style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--on-surface-variant)' }}>
-                      <div style={{ fontSize: '1.5rem', marginBottom: '0.75rem' }}>🔐</div>
+                      <div style={{ marginBottom: '0.75rem', display: 'flex', justifyContent: 'center' }}><ShieldCheck size={28} /></div>
                       <p>Loading secure payment form...</p>
                     </div>
                   ) : clientSecret && stripeOptions ? (
@@ -296,9 +297,9 @@ export default function PaymentPage() {
             </div>
 
             <div style={{ marginTop: '1.5rem', padding: '1rem', backgroundColor: 'var(--surface-container-low)', borderRadius: 'var(--radius-sm)', fontSize: '0.75rem', color: 'var(--on-surface-variant)', textAlign: 'center', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <span>🔒 SSL Encrypted</span>
-              <span>💳 Stripe Secure</span>
-              <span>↩ 30-Day Returns</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><Lock size={14} /> SSL Encrypted</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><CreditCard size={14} /> Stripe Secure</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><RotateCcw size={14} /> 30-Day Returns</span>
             </div>
           </div>
 

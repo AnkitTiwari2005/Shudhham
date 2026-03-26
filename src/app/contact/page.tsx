@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import { Sparkles } from 'lucide-react';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<'' | 'success' | 'submitting'>('');
@@ -65,7 +66,7 @@ export default function ContactPage() {
           <div style={{ backgroundColor: 'var(--surface-container-low)', padding: '2.5rem', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-md)' }}>
             {status === 'success' ? (
               <div className="animate-fade-in text-center" style={{ padding: '3rem 1rem' }}>
-                <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>✨</div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem', color: 'var(--primary)' }}><Sparkles size={40} /></div>
                 <h2 className="heading-headline" style={{ marginBottom: '1rem' }}>Message Sent</h2>
                 <p style={{ color: 'var(--on-surface-variant)', marginBottom: '2rem' }}>Thank you for reaching out. A wellness guide will be in touch within 24 hours.</p>
                 <button className="btn-secondary" onClick={() => setStatus('')}>Send another message</button>

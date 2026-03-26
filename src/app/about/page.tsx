@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { Leaf, Handshake, FlaskConical } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Our Story | Shudhham',
@@ -67,17 +68,17 @@ export default function AboutPage() {
           
           <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3rem' }}>
             <div style={{ padding: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-lg)' }}>
-              <div style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>🌿</div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem', color: 'var(--accent)' }}><Leaf size={32} /></div>
               <h3 className="heading-title" style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>Absolute Purity</h3>
               <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.9375rem', lineHeight: 1.6 }}>No fillers, no artificial additives, no compromises. Only potent, natural botanicals.</p>
             </div>
             <div style={{ padding: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-lg)' }}>
-              <div style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>🤝</div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem', color: 'var(--accent)' }}><Handshake size={32} /></div>
               <h3 className="heading-title" style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>Ethical Sourcing</h3>
               <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.9375rem', lineHeight: 1.6 }}>We partner directly with farmers who prioritize regenerative agriculture and fair labor.</p>
             </div>
             <div style={{ padding: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-lg)' }}>
-              <div style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>🔬</div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem', color: 'var(--accent)' }}><FlaskConical size={32} /></div>
               <h3 className="heading-title" style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>Rigorous Testing</h3>
               <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.9375rem', lineHeight: 1.6 }}>Every batch is tested for potency, heavy metals, and purity before it reaches you.</p>
             </div>

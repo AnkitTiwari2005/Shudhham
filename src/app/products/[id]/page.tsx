@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import AddToCartButton from '@/components/AddToCartButton';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { Truck, RotateCcw, ShieldCheck, Check } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -92,10 +93,10 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
             <div style={{ borderTop: '1px solid var(--outline-variant)', borderBottom: '1px solid var(--outline-variant)', padding: '1.5rem 0' }}>
               <h4 className="heading-title" style={{ fontSize: '1.125rem', marginBottom: '1rem' }}>Key Benefits</h4>
               <ul style={{ listStyle: 'none', padding: 0, display: 'grid', gap: '0.75rem', color: 'var(--on-surface-variant)', fontSize: '0.9375rem' }}>
-                <li style={{ display: 'flex', gap: '0.75rem' }}><span style={{ color: 'var(--primary)' }}>✓</span> 100% Organic & Ethically Sourced</li>
-                <li style={{ display: 'flex', gap: '0.75rem' }}><span style={{ color: 'var(--primary)' }}>✓</span> Rich in natural antioxidants & adaptogens</li>
-                <li style={{ display: 'flex', gap: '0.75rem' }}><span style={{ color: 'var(--primary)' }}>✓</span> Supports holistic immune system function</li>
-                <li style={{ display: 'flex', gap: '0.75rem' }}><span style={{ color: 'var(--primary)' }}>✓</span> No artificial fillers, colors, or preservatives</li>
+                <li style={{ display: 'flex', gap: '0.75rem' }}><span style={{ color: 'var(--primary)' }}><Check size={16} /></span> 100% Organic & Ethically Sourced</li>
+                <li style={{ display: 'flex', gap: '0.75rem' }}><span style={{ color: 'var(--primary)' }}><Check size={16} /></span> Rich in natural antioxidants & adaptogens</li>
+                <li style={{ display: 'flex', gap: '0.75rem' }}><span style={{ color: 'var(--primary)' }}><Check size={16} /></span> Supports holistic immune system function</li>
+                <li style={{ display: 'flex', gap: '0.75rem' }}><span style={{ color: 'var(--primary)' }}><Check size={16} /></span> No artificial fillers, colors, or preservatives</li>
               </ul>
             </div>
 
@@ -105,13 +106,13 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
             
             <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', marginTop: '1rem', color: 'var(--on-surface-variant)', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.25rem' }}>🚚</span> Free Shipping in India
+                <Truck size={20} style={{ color: 'var(--primary)' }} /> Free Shipping in India
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.25rem' }}>↩</span> 30-Day Easy Returns
+                <RotateCcw size={20} style={{ color: 'var(--primary)' }} /> 30-Day Easy Returns
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.25rem' }}>🔒</span> Secure Checkout
+                <ShieldCheck size={20} style={{ color: 'var(--primary)' }} /> Secure Checkout
               </div>
             </div>
           </div>

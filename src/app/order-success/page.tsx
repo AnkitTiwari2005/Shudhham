@@ -1,6 +1,7 @@
 "use client"
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { CheckCircle, Package, Mail } from 'lucide-react';
 
 export default function OrderSuccessPage() {
   const [orderId] = useState(() => {
@@ -27,9 +28,10 @@ export default function OrderSuccessPage() {
             alignItems: 'center', 
             justifyContent: 'center', 
             margin: '0 auto 2rem auto',
-            fontSize: '2.5rem'
+            fontSize: '2.5rem',
+            color: 'var(--primary)'
           }}>
-            ✓
+            <CheckCircle size={40} />
           </div>
           
           <h1 className="heading-headline" style={{ marginBottom: '0.75rem', color: 'var(--primary)' }}>
@@ -60,8 +62,8 @@ export default function OrderSuccessPage() {
           </div>
 
           <div style={{ marginTop: '2.5rem', fontSize: '0.8125rem', color: 'var(--on-surface-variant)', display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <span>📦 Ships within 2-3 days</span>
-            <span>📧 Confirmation email sent</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><Package size={16} /> Ships within 2-3 days</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><Mail size={16} /> Confirmation email sent</span>
           </div>
         </div>
       </div>
