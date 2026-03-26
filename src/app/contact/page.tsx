@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, MapPin, Mail, Clock } from 'lucide-react';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<'' | 'success' | 'submitting'>('');
@@ -30,7 +30,7 @@ export default function ContactPage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
               <div style={{ display: 'flex', gap: '1rem' }}>
-                <div style={{ fontSize: '1.5rem' }}>📍</div>
+                <div style={{ color: 'var(--primary)', marginTop: '0.25rem' }}><MapPin size={22} /></div>
                 <div>
                   <h3 className="heading-title" style={{ fontSize: '1.125rem', marginBottom: '0.5rem' }}>Visit Our Apothecary</h3>
                   <p style={{ color: 'var(--on-surface-variant)', lineHeight: 1.6, fontSize: '0.9375rem' }}>
@@ -41,7 +41,7 @@ export default function ContactPage() {
               </div>
               
               <div style={{ display: 'flex', gap: '1rem' }}>
-                <div style={{ fontSize: '1.5rem' }}>✉️</div>
+                <div style={{ color: 'var(--primary)', marginTop: '0.25rem' }}><Mail size={22} /></div>
                 <div>
                   <h3 className="heading-title" style={{ fontSize: '1.125rem', marginBottom: '0.5rem' }}>General Inquiries</h3>
                   <a href="mailto:shivskukreja@gmail.com" style={{ color: 'var(--primary)', fontWeight: 500, display: 'block', marginBottom: '0.25rem' }}>shivskukreja@gmail.com</a>
@@ -50,7 +50,7 @@ export default function ContactPage() {
               </div>
               
               <div style={{ display: 'flex', gap: '1rem' }}>
-                <div style={{ fontSize: '1.5rem' }}>🕒</div>
+                <div style={{ color: 'var(--primary)', marginTop: '0.25rem' }}><Clock size={22} /></div>
                 <div>
                   <h3 className="heading-title" style={{ fontSize: '1.125rem', marginBottom: '0.5rem' }}>Hours of Operation</h3>
                   <p style={{ color: 'var(--on-surface-variant)', lineHeight: 1.6, fontSize: '0.9375rem' }}>
