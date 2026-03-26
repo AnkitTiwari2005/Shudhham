@@ -28,22 +28,37 @@ export default async function HomePage() {
         position: 'relative',
         overflow: 'hidden'
       }}>
-        {/* Overlay */}
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(44,62,47,0.45)' }} />
+        {/* Light overlay — keeps image vivid */}
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.2)' }} />
         
-        <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {/* Frosted glass card */}
+        <div style={{
+          position: 'relative',
+          zIndex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          background: 'rgba(44, 62, 47, 0.55)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          borderRadius: '1.5rem',
+          border: '1px solid rgba(255,255,255,0.15)',
+          padding: '3rem 3.5rem',
+          maxWidth: '700px',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+        }}>
           <span style={{ color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.8125rem', marginBottom: '1.5rem', fontWeight: 600 }}>
             ✦ The Modern Apothecary ✦
           </span>
-          <h1 className="heading-display" style={{ maxWidth: '750px', marginBottom: '1.5rem', color: '#ffffff' }}>
+          <h1 className="heading-display" style={{ maxWidth: '600px', marginBottom: '1.25rem', color: '#ffffff' }}>
             Pure, Intentional Wellness Rooted in Tradition.
           </h1>
-          <p style={{ fontSize: '1.125rem', color: 'rgba(255,255,255,0.85)', maxWidth: '550px', marginBottom: '3rem', lineHeight: 1.7 }}>
+          <p style={{ fontSize: '1.0625rem', color: 'rgba(255,255,255,0.9)', maxWidth: '500px', marginBottom: '2.5rem', lineHeight: 1.7 }}>
             Discover our curated collection of organic botanicals, adaptogens, and traditional remedies designed for the modern lifestyle.
           </p>
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '400px', width: '100%' }}>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Link href="/products" className="btn-primary" style={{ padding: '1rem 2.5rem' }}>Shop Collection</Link>
-            <Link href="/about" className="btn-secondary" style={{ padding: '1rem 2.5rem', borderColor: 'white', color: 'white' }}>Our Philosophy</Link>
+            <Link href="/about" style={{ padding: '1rem 2.5rem', border: '1.5px solid rgba(255,255,255,0.7)', color: 'white', borderRadius: 'var(--radius-full)', fontWeight: 500, fontSize: '0.9375rem', transition: 'all 0.2s' }}>Our Philosophy</Link>
           </div>
         </div>
       </section>
