@@ -14,7 +14,7 @@ export default function ContactPage() {
   return (
     <div className="page-padding">
       <div className="container">
-        <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.2fr)', gap: '4rem', alignItems: 'start' }}>
+        <div className="grid-contact">
           
           {/* Contact Info */}
           <div>
@@ -75,7 +75,7 @@ export default function ContactPage() {
               <div className="animate-fade-in">
                 <h2 className="heading-title" style={{ marginBottom: '2rem', fontSize: '1.5rem' }}>Send a Message</h2>
                 <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
-                  <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                  <div className="grid-half" style={{ gap: '1.5rem' }}>
                     <input className="input-field" type="text" placeholder="First Name" required />
                     <input className="input-field" type="text" placeholder="Last Name" required />
                   </div>

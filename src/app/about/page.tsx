@@ -28,7 +28,7 @@ export default function AboutPage() {
       {/* Story Content */}
       <section className="section-padding">
         <div className="container">
-          <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '4rem', alignItems: 'center' }}>
+          <div className="grid-half" style={{ alignItems: 'center' }}>
             <div style={{ 
               aspectRatio: '3/4', 
               borderRadius: 'var(--radius-xl)',
@@ -66,7 +66,7 @@ export default function AboutPage() {
           <span style={{ display: 'block', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.15em', fontSize: '0.75rem', fontWeight: 600, marginBottom: '1rem' }}>The standard</span>
           <h2 className="heading-headline" style={{ color: 'white', marginBottom: '4rem' }}>Our Guiding Principles</h2>
           
-          <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3rem' }}>
+          <div className="grid-thirds" style={{ gap: '3rem' }}>
             <div style={{ padding: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-lg)' }}>
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem', color: 'var(--accent)' }}><Leaf size={32} /></div>
               <h3 className="heading-title" style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>Absolute Purity</h3>

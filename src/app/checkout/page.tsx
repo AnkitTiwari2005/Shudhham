@@ -137,7 +137,7 @@ export default function CheckoutPage() {
           <span style={{ color: 'var(--on-surface-variant)' }}>Payment</span>
         </div>
 
-        <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '2rem', alignItems: 'start' }}>
+        <div className="grid-checkout">
           {/* Form */}
           <div style={{ backgroundColor: 'var(--surface)', padding: '2rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)' }}>
             <form onSubmit={handleSubmit}>
@@ -187,7 +187,7 @@ export default function CheckoutPage() {
               {/* New Address Form */}
               {useNewAddress && (
                 <div style={{ display: 'grid', gap: '1rem' }}>
-                  <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="grid-half" style={{ gap: '1rem' }}>
                     <div>
                       <input className="input-field" type="text" placeholder="First Name" onChange={e => handleChange('firstName', e.target.value)} />
                       {errors.firstName && <p style={{ color: 'var(--error)', fontSize: '0.75rem', marginTop: '0.25rem' }}>{errors.firstName}</p>}
@@ -198,7 +198,7 @@ export default function CheckoutPage() {
                     <input className="input-field" type="text" placeholder="Full Address (House No, Street, Area)" onChange={e => handleChange('address', e.target.value)} />
                     {errors.address && <p style={{ color: 'var(--error)', fontSize: '0.75rem', marginTop: '0.25rem' }}>{errors.address}</p>}
                   </div>
-                  <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+                  <div className="grid-thirds" style={{ gap: '1rem' }}>
                     <div>
                       <input className="input-field" type="text" placeholder="City" onChange={e => handleChange('city', e.target.value)} />
                       {errors.city && <p style={{ color: 'var(--error)', fontSize: '0.75rem', marginTop: '0.25rem' }}>{errors.city}</p>}

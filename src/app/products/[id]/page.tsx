@@ -49,7 +49,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
           <span style={{ color: 'var(--primary)', fontWeight: 600 }}>{product.name}</span>
         </div>
 
-        <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '4rem', alignItems: 'start' }}>
+        <div className="grid-half">
           
           {/* Left: Images */}
           <div style={{ 
@@ -128,7 +128,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               </div>
             </div>
             
-            <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1.5rem' }}>
+            <div className="grid-products">
               {related.map((item: any) => (
                 <Link key={item.id} href={`/products/${item.id}`} style={{ backgroundColor: 'var(--surface)', padding: '1.25rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)', transition: 'transform 0.2s', display: 'block' }}>
                   <div style={{ aspectRatio: '1', backgroundColor: 'var(--surface-container-highest)', borderRadius: 'var(--radius-md)', overflow: 'hidden', marginBottom: '1.25rem' }}>

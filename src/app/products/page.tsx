@@ -54,7 +54,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { c
           ))}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '2rem' }}>
+        <div className="grid-products" style={{ gap: '2rem' }}>
           {products?.map((product: any) => (
             <ProductCard key={product.id} product={product} />
           ))}

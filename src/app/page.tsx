@@ -77,7 +77,7 @@ export default async function HomePage() {
       {/* Philosophy Section */}
       <section className="section-padding">
         <div className="container">
-          <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
+          <div className="grid-half" style={{ alignItems: 'center' }}>
             <div>
               <span style={{ color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.15em', fontSize: '0.75rem', fontWeight: 600 }}>Our Philosophy</span>
               <h2 className="heading-headline" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>We believe the purest medicine comes straight from the earth.</h2>
@@ -111,7 +111,7 @@ export default async function HomePage() {
             <Link href="/products" style={{ color: 'var(--primary)', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: '4px' }}>View All →</Link>
           </div>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1.5rem' }}>
+          <div className="grid-products">
             {featuredProducts?.map((product: any) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -124,7 +124,7 @@ export default async function HomePage() {
         <div className="container text-center">
           <span style={{ color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.15em', fontSize: '0.75rem', fontWeight: 600 }}>Why Shudhham</span>
           <h2 className="heading-headline" style={{ marginTop: '0.75rem', marginBottom: '4rem' }}>Nature&apos;s Best, Delivered to You</h2>
-          <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+          <div className="grid-thirds">
             {[
               { icon: <Leaf size={32} />, title: 'Farm to Shelf', desc: 'Direct partnerships with 500+ organic farms across India ensure freshness and fair trade.' },
               { icon: <FlaskConical size={32} />, title: 'Lab Certified', desc: 'Every batch undergoes rigorous third-party testing for potency, heavy metals, and purity.' },
@@ -144,7 +144,7 @@ export default async function HomePage() {
       <section className="section-padding" style={{ backgroundColor: 'var(--primary)', color: 'white' }}>
         <div className="container text-center">
           <h2 className="heading-headline" style={{ color: 'white', marginBottom: '3rem' }}>What Our Community Says</h2>
-          <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+          <div className="grid-thirds">
             {[
               { name: 'Priya M.', text: 'The Ashwagandha powder has completely transformed my energy levels. Best quality I\'ve found anywhere.', rating: 5 },
               { name: 'Rohan K.', text: 'Finally, an Ayurvedic brand that doesn\'t compromise. The Golden Milk is my evening ritual now.', rating: 5 },

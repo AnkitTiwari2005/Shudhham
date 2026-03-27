@@ -93,15 +93,11 @@ a { text-decoration: none; color: inherit; }
 .section-padding {
   padding-top: 5rem;
   padding-bottom: 5rem;
-  padding-left: var(--page-gutter);
-  padding-right: var(--page-gutter);
 }
 
 .page-padding {
   padding-top: 4rem;
   padding-bottom: 4rem;
-  padding-left: var(--page-gutter);
-  padding-right: var(--page-gutter);
 }
 
 /* ─── Buttons ─── */
@@ -280,14 +276,9 @@ a { text-decoration: none; color: inherit; }
   .desktop-only { display: none !important; }
 
   /* Mobile stacking for all grids */
-  .responsive-grid {
+  .grid-checkout, .grid-payment, .grid-profile, .grid-contact, .grid-half, .grid-thirds, .responsive-grid, .responsive-grid-2 {
     grid-template-columns: 1fr !important;
     gap: 1.5rem !important;
-  }
-
-  .responsive-grid-2 {
-    grid-template-columns: 1fr !important;
-    gap: 1rem !important;
   }
 }
 
@@ -312,3 +303,12 @@ a { text-decoration: none; color: inherit; }
 .gap-1 { gap: 0.5rem; }
 .gap-2 { gap: 1rem; }
 .gap-3 { gap: 1.5rem; }
+
+/* ─── Grid Classes ─── */
+.grid-checkout { display: grid; grid-template-columns: 1fr 380px; gap: 2rem; align-items: start; }
+.grid-payment { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 2rem; align-items: start; }
+.grid-profile { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 2rem; align-items: start; }
+.grid-contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 4rem; align-items: start; }
+.grid-half { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4rem; align-items: start; }
+.grid-thirds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.grid-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }

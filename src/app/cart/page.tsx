@@ -30,7 +30,7 @@ export default function CartPage() {
             <p style={{ color: 'var(--on-surface-variant)', marginTop: '0.5rem', fontSize: '1rem' }}>{totalItems} item{totalItems > 1 ? 's' : ''}</p>
           </header>
 
-          <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '2rem', alignItems: 'start' }}>
+          <div className="grid-checkout">
             {/* Items */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {items.map((item) => (

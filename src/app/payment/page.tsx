@@ -184,7 +184,7 @@ export default function PaymentPage() {
           <span style={{ color: 'var(--primary)', fontWeight: 600 }}>Payment</span>
         </div>
 
-        <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 380px', gap: '2rem', alignItems: 'start' }}>
+        <div className="grid-payment">
           
           {/* Payment Flow */}
           <div style={{ padding: '2rem', backgroundColor: 'var(--surface)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)' }}>

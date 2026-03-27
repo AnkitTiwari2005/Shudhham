@@ -138,7 +138,7 @@ export default function ProfilePage() {
     <div className="page-padding" style={{ backgroundColor: 'var(--surface-container-low)', minHeight: '100vh' }}>
       <div className="container">
         
-        <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: '300px minmax(0, 1fr)', gap: '2rem', alignItems: 'start' }}>
+        <div className="grid-profile">
           
           {/* Sidebar */}
           <div style={{ backgroundColor: 'var(--surface)', padding: '2rem', borderRadius: 'var(--radius-lg)', display: 'flex', flexDirection: 'column', gap: '0.5rem', position: 'sticky', top: '100px', boxShadow: 'var(--shadow-sm)' }}>
@@ -184,7 +184,7 @@ export default function ProfilePage() {
                     <input className="input-field" type="email" value={user.email} disabled style={{ backgroundColor: 'var(--surface-container-low)', opacity: 0.7, cursor: 'not-allowed' }} />
                     <p style={{ fontSize: '0.75rem', color: 'var(--on-surface-variant)', marginTop: '0.5rem' }}>Email cannot be changed.</p>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="grid-half" style={{ gap: '1rem' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.5rem', fontWeight: 500 }}>Phone Number</label>
                       <input className="input-field" type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+91 XXXXX XXXXX" />
@@ -282,7 +282,7 @@ export default function ProfilePage() {
                   <div style={{ backgroundColor: 'var(--surface-container-low)', padding: '2rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--outline-variant)' }}>
                     <h3 className="heading-title" style={{ fontSize: '1.125rem', marginBottom: '1.5rem' }}>Complete New Address</h3>
                     {addressError && <p style={{ color: 'var(--error)', fontSize: '0.875rem', marginBottom: '1rem', padding: '0.75rem', backgroundColor: 'rgba(186,26,26,0.05)', borderRadius: 'var(--radius-sm)' }}>{addressError}</p>}
-                    <form onSubmit={handleSaveAddress} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
+                    <form onSubmit={handleSaveAddress} className="grid-half" style={{ gap: '1.25rem' }}>
                       <input className="input-field" placeholder="First Name" required value={addressForm.first_name} onChange={e => setAddressForm({...addressForm, first_name: e.target.value})} />
                       <input className="input-field" placeholder="Last Name" required value={addressForm.last_name} onChange={e => setAddressForm({...addressForm, last_name: e.target.value})} />
                       <input className="input-field" placeholder="Address Line 1" style={{ gridColumn: 'span 2' }} required value={addressForm.address_line1} onChange={e => setAddressForm({...addressForm, address_line1: e.target.value})} />
