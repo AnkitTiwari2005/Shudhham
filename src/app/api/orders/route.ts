@@ -83,7 +83,7 @@ export async function POST(request: Request) {
 
       await resend.emails.send({
         from: 'Shudhham Orders <onboarding@resend.dev>',
-        to: ['shivskukreja@gmail.com'],
+        to: ['12328.uspc@gmail.com'],
         subject: `New Order Received! (₹${total_amount})`,
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
