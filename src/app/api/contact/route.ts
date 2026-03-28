@@ -10,7 +10,7 @@ export async function POST(request: Request) {
 
     const { data, error } = await resend.emails.send({
       from: 'Shudhham <onboarding@resend.dev>', // Default resend testing domain
-      to: ['shivskukreja@gmail.com'], // The admin email
+      to: ['pikapikachu1626@gmail.com'], // The admin email
       subject: `New Contact Inquiry: ${type.toUpperCase()}`,
       html: `
         <h2>New Contact Source Submission</h2>
