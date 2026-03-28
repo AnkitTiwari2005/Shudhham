@@ -5,42 +5,49 @@ import { useState } from 'react';
 import { Check } from 'lucide-react';
 
 export default function AddToCartButton({ product }: { product: any }) {
-  const { addItem } = useCart();
+  const { items, addItem, updateQuantity } = useCart();
   const { showToast } = useToast();
-  const [quantity, setQuantity] = useState(1);
-
-  const [isAdded, setIsAdded] = useState(false);
+  
+  const cartItem = items.find(i => i.id === product.id);
 
   const handleAdd = () => {
-    addItem({ ...product, quantity });
+    addItem({ ...product, quantity: 1 });
     showToast(`${product.name} added to cart!`, 'success');
-    setIsAdded(true);
-    setTimeout(() => setIsAdded(false), 1500);
   };
 
-  return (
-    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+  const handleIncrement = () => {
+    if (cartItem) updateQuantity(product.id, cartItem.quantity + 1);
+  };
+
+  const handleDecrement = () => {
+    if (cartItem) updateQuantity(product.id, cartItem.quantity - 1);
+  };
+
+  if (cartItem) {
+    return (
       <div style={{ 
         display: 'flex', 
         alignItems: 'center', 
-        gap: '1rem', 
-        backgroundColor: 'var(--surface-container-low)', 
-        padding: '0.5rem 1rem', 
-        borderRadius: '0.5rem' 
+        justifyContent: 'space-between', 
+        backgroundColor: 'var(--primary)', 
+        color: 'white', 
+        borderRadius: 'var(--radius-full)', 
+        padding: '0.375rem', 
+        width: '100%', 
+        maxWidth: '300px',
+        height: '3.5rem',
+        boxShadow: 'var(--shadow-md)'
       }}>
-        <button onClick={() => setQuantity(Math.max(1, quantity - 1))} style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: '1.25rem' }}>-</button>
-        <span style={{ fontWeight: 600, minWidth: '20px', textAlign: 'center' }}>{quantity}</span>
-        <button onClick={() => setQuantity(quantity + 1)} style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: '1.25rem' }}>+</button>
+        <button onClick={handleDecrement} style={{ background: 'var(--primary-dark)', borderRadius: '50%', border: 'none', color: 'white', width: '2.75rem', height: '2.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '1.5rem' }}>-</button>
+        <span style={{ fontWeight: 600, fontSize: '1rem' }}>{cartItem.quantity} in Cart</span>
+        <button onClick={handleIncrement} style={{ background: 'var(--primary-dark)', borderRadius: '50%', border: 'none', color: 'white', width: '2.75rem', height: '2.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '1.5rem' }}>+</button>
       </div>
-      <button onClick={handleAdd} className="btn-primary" style={{ flex: 1, padding: '1rem', backgroundColor: isAdded ? 'var(--secondary)' : '', transition: 'all 0.3s ease' }} disabled={isAdded}>
-        {isAdded ? (
-          <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-            <Check size={18} /> Added to Cart
-          </span>
-        ) : (
-          'Add to Cart'
-        )}
-      </button>
-    </div>
+    );
+  }
+
+  return (
+    <button onClick={handleAdd} className="btn-primary" style={{ width: '100%', maxWidth: '300px', padding: '1rem', height: '3.5rem' }}>
+      Add to Cart
+    </button>
   );
 }

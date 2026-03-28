@@ -14,18 +14,28 @@ type Product = {
 };
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { addItem } = useCart();
+  const { items, addItem, updateQuantity } = useCart();
   const { showToast } = useToast();
-  const [isAdded, setIsAdded] = useState(false);
+  
+  const cartItem = items.find(i => i.id === product.id);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     addItem({ ...product, quantity: 1 });
     showToast(`${product.name} added to cart!`, 'success');
-    
-    setIsAdded(true);
-    setTimeout(() => setIsAdded(false), 1500);
+  };
+
+  const handleIncrement = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (cartItem) updateQuantity(product.id, cartItem.quantity + 1);
+  };
+
+  const handleDecrement = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (cartItem) updateQuantity(product.id, cartItem.quantity - 1);
   };
 
   return (
@@ -66,15 +76,29 @@ export default function ProductCard({ product }: { product: Product }) {
         </p>
       </div>
 
-      <button onClick={handleAddToCart} className={isAdded ? "btn-primary" : "btn-secondary"} style={{ marginTop: 'auto', width: '100%', transition: 'all 0.3s ease', display: 'flex', justifyContent: 'center', gap: '0.5rem', backgroundColor: isAdded ? 'var(--secondary)' : '', border: isAdded ? 'none' : '' }} disabled={isAdded}>
-        {isAdded ? (
-          <>
-            <Check size={18} /> Added
-          </>
-        ) : (
-          'Add to Cart'
-        )}
-      </button>
+      {cartItem ? (
+        <div style={{ 
+          marginTop: 'auto', 
+          width: '100%', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between',
+          backgroundColor: 'var(--primary)',
+          color: 'white',
+          borderRadius: 'var(--radius-full)',
+          padding: '0.25rem',
+          height: '2.75rem',
+          boxShadow: 'var(--shadow-sm)'
+        }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+          <button onClick={handleDecrement} style={{ background: 'var(--primary-dark)', borderRadius: '50%', border: 'none', color: 'white', width: '2rem', height: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '1.25rem' }}>-</button>
+          <span style={{ fontWeight: 600, fontSize: '0.9375rem' }}>{cartItem.quantity}</span>
+          <button onClick={handleIncrement} style={{ background: 'var(--primary-dark)', borderRadius: '50%', border: 'none', color: 'white', width: '2rem', height: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '1.25rem' }}>+</button>
+        </div>
+      ) : (
+        <button onClick={handleAddToCart} className="btn-secondary" style={{ marginTop: 'auto', width: '100%', height: '2.75rem' }}>
+          Add to Cart
+        </button>
+      )}
 
       <style jsx>{`
         .product-card-hover:hover {
