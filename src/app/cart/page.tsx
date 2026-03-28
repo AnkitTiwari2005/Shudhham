@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
-import { Lock, RotateCcw } from 'lucide-react';
+import { Lock, RotateCcw, ShoppingBag } from 'lucide-react';
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, subtotal, totalItems } = useCart();
@@ -10,7 +10,9 @@ export default function CartPage() {
     return (
       <div className="section-padding" style={{ textAlign: 'center' }}>
         <div className="container">
-          <div style={{ fontSize: '4rem', marginBottom: '1.5rem' }}>🛒</div>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem', color: 'var(--outline)' }}>
+            <ShoppingBag size={64} strokeWidth={1} />
+          </div>
           <h1 className="heading-title" style={{ marginBottom: '1rem', fontSize: '2rem' }}>Your Cart is Empty</h1>
           <p style={{ color: 'var(--on-surface-variant)', maxWidth: '400px', margin: '0 auto 2.5rem auto', fontSize: '1.125rem' }}>
             Looks like you haven&apos;t added any natural remedies yet. Let&apos;s fix that!

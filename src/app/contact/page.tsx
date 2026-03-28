@@ -1,14 +1,36 @@
 "use client"
 import React, { useState } from 'react';
 import { Sparkles, MapPin, Mail, Clock } from 'lucide-react';
+import { createClientSupabase } from '@/lib/supabase';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<'' | 'success' | 'submitting'>('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('submitting');
-    setTimeout(() => setStatus('success'), 800);
+    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    const supabase = createClientSupabase();
+    
+    // Attempt to insert into Supabase
+    // Note: The contact_messages table must be created in Supabase!
+    const { error } = await supabase.from('contact_messages').insert([{
+      first_name: formData.get('firstName'),
+      last_name: formData.get('lastName'),
+      email: formData.get('email'),
+      inquiry_type: formData.get('type'),
+      message: formData.get('message')
+    }]);
+
+    if (error) {
+      console.error("Error submitting contact form:", error);
+    }
+
+    form.reset();
+    setStatus('success');
   };
 
   return (
@@ -76,13 +98,13 @@ export default function ContactPage() {
                 <h2 className="heading-title" style={{ marginBottom: '2rem', fontSize: '1.5rem' }}>Send a Message</h2>
                 <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
                   <div className="grid-half" style={{ gap: '1.5rem' }}>
-                    <input className="input-field" type="text" placeholder="First Name" required />
-                    <input className="input-field" type="text" placeholder="Last Name" required />
+                    <input className="input-field" type="text" name="firstName" placeholder="First Name" required />
+                    <input className="input-field" type="text" name="lastName" placeholder="Last Name" required />
                   </div>
-                  <input className="input-field" type="email" placeholder="Email Address" required />
+                  <input className="input-field" type="email" name="email" placeholder="Email Address" required />
                   
                   <div style={{ position: 'relative' }}>
-                    <select className="input-field" style={{ appearance: 'none', cursor: 'pointer' }} required defaultValue="">
+                    <select className="input-field" name="type" style={{ appearance: 'none', cursor: 'pointer' }} required defaultValue="">
                       <option value="" disabled>Select Inquiry Type...</option>
                       <option value="order">Order Support</option>
                       <option value="product">Product Question</option>
@@ -94,6 +116,7 @@ export default function ContactPage() {
                   
                   <textarea 
                     className="input-field"
+                    name="message"
                     placeholder="How can we help you on your wellness journey?" 
                     required 
                     style={{ minHeight: '150px', resize: 'vertical' }}
