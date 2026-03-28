@@ -2,8 +2,12 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { Resend } from 'resend';
+import Stripe from 'stripe';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!.trim(), {
+  apiVersion: '2024-12-18.acacia',
+});
 
 export async function POST(request: Request) {
   try {
@@ -29,14 +33,51 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { items, shipping, total_amount } = body;
+    const { items, shipping, paymentIntentId } = body;
 
-    // 1. Create Order
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return NextResponse.json({ success: false, error: 'Cart is empty' }, { status: 400 });
+    }
+
+    if (!paymentIntentId) {
+       return NextResponse.json({ success: false, error: 'Missing payment intent' }, { status: 400 });
+    }
+
+    // 1. Validate pricing securely from database (duplicate logic to prevent tampering)
+    const productIds = items.map((item: any) => item.id);
+    const { data: dbProducts, error: dbError } = await supabase
+      .from('products')
+      .select('id, price')
+      .in('id', productIds);
+
+    if (dbError || !dbProducts) {
+      throw new Error('Failed to fetch product data for verification');
+    }
+
+    let calculatedTotal = 0;
+    for (const item of items) {
+      const dbProduct = dbProducts.find(p => p.id === item.id);
+      if (!dbProduct) throw new Error(`Product ${item.id} not found`);
+      calculatedTotal += dbProduct.price * Math.max(1, item.quantity);
+    }
+
+    // 2. Strict Payment Verification with Stripe!
+    if (paymentIntentId !== 'cod') {
+      const intent = await stripe.paymentIntents.retrieve(paymentIntentId);
+      if (intent.status !== 'succeeded') {
+        return NextResponse.json({ success: false, error: 'Payment has not succeeded in Stripe.' }, { status: 400 });
+      }
+      if (intent.amount !== Math.round(calculatedTotal * 100)) {
+        return NextResponse.json({ success: false, error: 'Payment amount mismatch. Potential tampering detected.' }, { status: 400 });
+      }
+    }
+
+    // 3. Create Order using the SAFE calculatedTotal
     const { data: orderData, error: orderError } = await supabase
       .from('orders')
       .insert({
         user_id: user.id,
-        total_amount,
+        total_amount: calculatedTotal,
         full_name: `${shipping.firstName} ${shipping.lastName}`.trim(),
         address: shipping.address,
         city: shipping.city,
@@ -52,14 +93,17 @@ export async function POST(request: Request) {
       throw orderError;
     }
 
-    // 2. Insert Order Items
-    const orderItemsToInsert = items.map((item: any) => ({
-      order_id: orderData.id,
-      product_id: item.id,
-      product_name: item.name,
-      quantity: item.quantity,
-      price: item.price
-    }));
+    // 4. Insert Order Items using SAFE dbProduct prices
+    const orderItemsToInsert = items.map((item: any) => {
+      const dbProduct = dbProducts.find(p => p.id === item.id)!;
+      return {
+        order_id: orderData.id,
+        product_id: item.id,
+        product_name: item.name,
+        quantity: Math.max(1, item.quantity),
+        price: dbProduct.price 
+      };
+    });
 
     const { error: itemsError } = await supabase
       .from('order_items')
@@ -70,11 +114,11 @@ export async function POST(request: Request) {
       throw itemsError;
     }
 
-    // 3. Send Email Notification to Admin
+    // 5. Send Email Notification to Admin
     try {
-      const itemsHtml = items.map((item: any) => `
+      const itemsHtml = orderItemsToInsert.map((item: any) => `
         <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.name}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.product_name}</td>
           <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.quantity}</td>
           <td style="padding: 8px; border-bottom: 1px solid #ddd;">₹${item.price}</td>
           <td style="padding: 8px; border-bottom: 1px solid #ddd;">₹${item.price * item.quantity}</td>
@@ -84,13 +128,14 @@ export async function POST(request: Request) {
       await resend.emails.send({
         from: 'Shudhham Orders <onboarding@resend.dev>',
         to: ['pikapikachu1626@gmail.com'],
-        subject: `New Order Received! (₹${total_amount})`,
+        subject: `New Order Received! [${paymentIntentId === 'cod' ? 'COD' : 'PAID'}] (₹${calculatedTotal})`,
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
             <h2>🎉 New Order Placed!</h2>
             <p><strong>Customer:</strong> ${shipping.firstName} ${shipping.lastName}</p>
             <p><strong>Email:</strong> ${user.email}</p>
-            <p><strong>Total Amount:</strong> ₹${total_amount}</p>
+            <p><strong>Total Amount:</strong> ₹${calculatedTotal}</p>
+            <p><strong>Payment Method:</strong> ${paymentIntentId === 'cod' ? 'Cash on Delivery' : 'Card / Paid via Stripe'}</p>
             
             <h3>Shipping Address</h3>
             <p>
@@ -114,14 +159,13 @@ export async function POST(request: Request) {
             </table>
             
             <p style="margin-top: 30px; color: #666; font-size: 14px;">
-              Check your Supabase dashboard for complete order details.
+              Check your Supabase/Stripe dashboard for complete order details.
             </p>
           </div>
         `
       });
     } catch (emailError) {
       console.error("Failed to send order email notification:", emailError);
-      // We don't throw here because the order was already successfully placed in the DB
     }
 
     return NextResponse.json({ success: true, orderId: orderData.id });

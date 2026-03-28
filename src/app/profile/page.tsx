@@ -4,11 +4,9 @@ import { useAuth } from '@/context/AuthContext';
 import { createClientSupabase } from '@/lib/supabase';
 import { useEffect, useState } from 'react';
 import { Package } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 
 export default function ProfilePage() {
   const { user, signOut } = useAuth();
-  const router = useRouter();
   const [activeTab, setActiveTab] = useState('profile');
   const [profile, setProfile] = useState<any>(null);
   const [orders, setOrders] = useState<any[]>([]);

@@ -2,11 +2,9 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { createClientSupabase } from '@/lib/supabase';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 
 export default function SignupPage() {
-  const router = useRouter();
   const { user } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

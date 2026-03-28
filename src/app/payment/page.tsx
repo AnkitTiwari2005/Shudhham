@@ -10,7 +10,7 @@ import { CreditCard, Banknote, ShieldCheck, Lock, RotateCcw } from 'lucide-react
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 // ─── Stripe Checkout Form ───
-function StripeCheckoutForm({ shipping, onSuccess, subtotal }: { shipping: any; onSuccess: () => void; subtotal: number }) {
+function StripeCheckoutForm({ onSuccess, subtotal }: { onSuccess: (paymentIntentId: string) => void; subtotal: number }) {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -23,7 +23,7 @@ function StripeCheckoutForm({ shipping, onSuccess, subtotal }: { shipping: any; 
     setIsProcessing(true);
     setErrorMessage('');
 
-    const { error } = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: `${window.location.origin}/order-success`,
@@ -36,7 +36,7 @@ function StripeCheckoutForm({ shipping, onSuccess, subtotal }: { shipping: any; 
       setIsProcessing(false);
     } else {
       // Payment succeeded without redirect
-      onSuccess();
+      onSuccess(paymentIntent.id);
     }
   };
 
@@ -61,13 +61,13 @@ function StripeCheckoutForm({ shipping, onSuccess, subtotal }: { shipping: any; 
 }
 
 // ─── COD Form ───
-function CODForm({ onSuccess, subtotal }: { onSuccess: () => void; subtotal: number }) {
+function CODForm({ onSuccess, subtotal }: { onSuccess: (paymentIntentId: string) => void; subtotal: number }) {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleSubmit = () => {
     setIsProcessing(true);
     // Simulate COD order placement
-    setTimeout(() => onSuccess(), 800);
+    setTimeout(() => onSuccess('cod'), 800);
   };
 
   return (
@@ -114,7 +114,7 @@ export default function PaymentPage() {
       fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: subtotal, shipping: shippingData }),
+        body: JSON.stringify({ items, shipping: shippingData }),
       })
         .then(res => res.json())
         .then(data => {
@@ -132,7 +132,7 @@ export default function PaymentPage() {
     }
   }, [selectedMethod, subtotal, shippingData]);
 
-  const handleOrderSuccess = async () => {
+  const handleOrderSuccess = async (paymentIntentId: string) => {
     // Create order in database
     try {
       await fetch('/api/orders', {
@@ -141,7 +141,7 @@ export default function PaymentPage() {
         body: JSON.stringify({
           items,
           shipping: shippingData,
-          total_amount: subtotal,
+          paymentIntentId
         }),
       });
     } catch (err) {
@@ -244,7 +244,7 @@ export default function PaymentPage() {
                     </div>
                   ) : clientSecret && stripeOptions ? (
                     <Elements stripe={stripePromise} options={stripeOptions}>
-                      <StripeCheckoutForm shipping={shippingData} onSuccess={handleOrderSuccess} subtotal={subtotal} />
+                      <StripeCheckoutForm onSuccess={handleOrderSuccess} subtotal={subtotal} />
                     </Elements>
                   ) : (
                     <div style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--on-surface-variant)' }}>

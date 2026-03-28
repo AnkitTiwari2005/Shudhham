@@ -29,7 +29,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const savedCart = localStorage.getItem('shudhham_cart');
     if (savedCart) {
-      try { setItems(JSON.parse(savedCart)); } catch (e) {}
+      try { setItems(JSON.parse(savedCart)); } catch { }
     }
     setIsLoaded(true);
   }, []);

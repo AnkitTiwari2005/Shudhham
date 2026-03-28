@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Serif } from "next/font/google";
+import "@fontsource/inter/300.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/noto-serif/400.css";
+import "@fontsource/noto-serif/500.css";
+import "@fontsource/noto-serif/700.css";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -7,8 +14,7 @@ import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { ToastProvider } from "@/context/ToastContext";
 
-const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
-const notoSerif = Noto_Serif({ subsets: ["latin"], weight: ["400", "500", "700"], variable: '--font-noto-serif' });
+
 
 export const metadata: Metadata = {
   title: "Shudhham - Natural Wellness",
@@ -22,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${notoSerif.variable}`} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <AuthProvider>
           <ToastProvider>
             <CartProvider>
