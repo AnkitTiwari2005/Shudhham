@@ -91,7 +91,7 @@ export default async function HomePage() {
             <div style={{ 
               aspectRatio: '4/3', 
               borderRadius: 'var(--radius-xl)',
-              backgroundImage: 'url(https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=800&auto=format&fit=crop)',
+              backgroundImage: 'url(https://lh3.googleusercontent.com/aida-public/AB6AXuCrCvAhPu5hVVJ_XDDqj2NQzBAMlqkm0YKmZYiLSr9uZjmQjc2ZdalTtQ9gcMuEHs7h2pk_UQRQS3OyzjZpOM_7r0tYHSekvw8U-9r2Nw_HZsiOadLdh6klpbreFKEyfNqn73CVDtVqYo7so2J3BgRM7vMCtkHxBmXfS8mnJYPoqa8s0rjYrnorPfqUx26kCfCHnYWfdHbPyk9iah2WGyfZzg3NnXv4VAF0UuDYXKGN5o9NRdyMv8Kl6jGkwBmcfQXTCG1rtU_kWfCh)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               boxShadow: 'var(--shadow-xl)'
