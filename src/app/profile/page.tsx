@@ -31,6 +31,17 @@ export default function ProfilePage() {
   });
 
   useEffect(() => {
+    // Check URL parameters for tab selection
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab');
+      if (tab && ['profile', 'orders', 'addresses'].includes(tab)) {
+        setActiveTab(tab);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if (user) {
       fetchProfile();
       fetchOrders();

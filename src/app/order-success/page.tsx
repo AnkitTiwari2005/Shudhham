@@ -57,7 +57,7 @@ export default function OrderSuccessPage() {
           </div>
 
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/profile" className="btn-primary">View My Orders</Link>
+            <Link href="/profile?tab=orders" className="btn-primary">View My Orders</Link>
             <Link href="/products" className="btn-secondary">Continue Shopping</Link>
           </div>
 
