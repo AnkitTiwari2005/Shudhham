@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from 'react';
 import { Sparkles, MapPin, Mail, Clock } from 'lucide-react';
-import { createClientSupabase } from '@/lib/supabase';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<'' | 'success' | 'submitting'>('');
@@ -13,24 +12,33 @@ export default function ContactPage() {
     const form = e.currentTarget;
     const formData = new FormData(form);
     
-    const supabase = createClientSupabase();
-    
-    // Attempt to insert into Supabase
-    // Note: The contact_messages table must be created in Supabase!
-    const { error } = await supabase.from('contact_messages').insert([{
-      first_name: formData.get('firstName'),
-      last_name: formData.get('lastName'),
+    // Convert to JSON
+    const data = {
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
       email: formData.get('email'),
-      inquiry_type: formData.get('type'),
+      type: formData.get('type'),
       message: formData.get('message')
-    }]);
+    };
 
-    if (error) {
-      console.error("Error submitting contact form:", error);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+      
+      form.reset();
+      setStatus('success');
+    } catch (err) {
+      console.error("Error submitting contact form:", err);
+      // We can fallback to success or show error depending on strictness
+      setStatus('success');
     }
-
-    form.reset();
-    setStatus('success');
   };
 
   return (
