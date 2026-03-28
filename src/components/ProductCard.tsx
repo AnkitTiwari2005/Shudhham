@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/context/ToastContext';
+import { useState } from 'react';
+import { Check } from 'lucide-react';
 
 type Product = {
   id: string;
@@ -14,12 +16,16 @@ type Product = {
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
   const { showToast } = useToast();
+  const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     addItem({ ...product, quantity: 1 });
     showToast(`${product.name} added to cart!`, 'success');
+    
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1500);
   };
 
   return (
@@ -60,8 +66,14 @@ export default function ProductCard({ product }: { product: Product }) {
         </p>
       </div>
 
-      <button onClick={handleAddToCart} className="btn-secondary" style={{ marginTop: 'auto', width: '100%' }}>
-        Add to Cart
+      <button onClick={handleAddToCart} className={isAdded ? "btn-primary" : "btn-secondary"} style={{ marginTop: 'auto', width: '100%', transition: 'all 0.3s ease', display: 'flex', justifyContent: 'center', gap: '0.5rem', backgroundColor: isAdded ? 'var(--secondary)' : '', border: isAdded ? 'none' : '' }} disabled={isAdded}>
+        {isAdded ? (
+          <>
+            <Check size={18} /> Added
+          </>
+        ) : (
+          'Add to Cart'
+        )}
       </button>
 
       <style jsx>{`
