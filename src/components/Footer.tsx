@@ -34,6 +34,17 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Wellness */}
+          <div>
+            <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Wellness</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <Link href="/ayurveda" style={{ color: 'rgba(250, 248, 243, 0.7)', textDecoration: 'none', transition: 'color 0.2s' }}>Ayurvedic Treatments</Link>
+              <Link href="/naturopathy" style={{ color: 'rgba(250, 248, 243, 0.7)', textDecoration: 'none', transition: 'color 0.2s' }}>Naturopathy</Link>
+              <Link href="/research" style={{ color: 'rgba(250, 248, 243, 0.7)', textDecoration: 'none', transition: 'color 0.2s' }}>Medicinal Research</Link>
+              <Link href="/about" style={{ color: 'rgba(250, 248, 243, 0.7)', textDecoration: 'none', transition: 'color 0.2s' }}>Our Story</Link>
+            </div>
+          </div>
+
           {/* Business Info */}
           <div>
             <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Visit Us</h4>

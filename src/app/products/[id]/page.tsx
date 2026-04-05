@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import AddToCartButton from '@/components/AddToCartButton';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { Truck, RotateCcw, ShieldCheck, Check } from 'lucide-react';
+import { Truck, RotateCcw, ShieldCheck, Check, Star } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -76,7 +76,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               </span>
               <h1 className="heading-display" style={{ marginTop: '0.75rem', fontSize: '2.5rem', lineHeight: 1.1 }}>{product.name}</h1>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '1rem' }}>
-                <div style={{ color: '#D4A574', letterSpacing: '2px', fontSize: '1.125rem' }}>★★★★★</div>
+                <div style={{ color: '#D4A574', display: 'flex', gap: '2px' }}>{Array.from({ length: 5 }).map((_, si) => <Star key={si} size={18} fill="currentColor" />)}</div>
                 <span style={{ fontSize: '0.875rem', color: 'var(--on-surface-variant)', textDecoration: 'underline' }}>(24 verified reviews)</span>
               </div>
             </div>

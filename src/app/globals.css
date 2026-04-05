@@ -1,19 +1,19 @@
 
 
 :root {
-  --primary: #4A7C59;
-  --primary-dark: #3a6347;
+  --primary: #2e6b4a; /* User specified primary green */
+  --primary-dark: #1a3d2b; /* User specified dark forest green for logo/accents */
   --primary-container: #d2e7d5;
   --on-primary: #ffffff;
   --secondary: #6B9B7C;
   --secondary-container: #eef5f0;
-  --surface: #ffffff;
-  --surface-container-low: #FAF8F3;
+  --surface: #f9f6f0; /* User specified warm off-white */
+  --surface-container-low: #f4efeb;
   --surface-container-highest: #F0EDE6;
-  --on-surface: #2C3E2F;
+  --on-surface: #5a5244; /* User specified warm dark brown-gray */
   --on-surface-variant: #5a6b5e;
   --outline: #717d73;
-  --outline-variant: #c3cec5;
+  --outline-variant: #e2d9cc; /* User specified muted tan */
   --error: #ba1a1a;
   --accent: #D4A574;
 
@@ -305,14 +305,73 @@ a { text-decoration: none; color: inherit; }
   }
 }
 
-@media (min-width: 769px) {
-  .mobile-only { display: none !important; }
-}
-
 @media (max-width: 480px) {
   .heading-display { font-size: 1.75rem !important; }
 }
 
-@media (max-width: 480px) {
-  .heading-display { font-size: 1.75rem !important; }
+/* ─── Navbar Layout ─── */
+
+.nav-desktop-layout {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.nav-desktop-left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.nav-desktop-left-links {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.nav-desktop-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-desktop-right-links {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.nav-desktop-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-desktop-logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  pointer-events: none;
+}
+.nav-desktop-logo a {
+  pointer-events: auto;
+}
+
+.nav-mobile-bar {
+  display: none;
+}
+
+/* Mobile: hide desktop segments entirely */
+@media (max-width: 768px) {
+  .nav-desktop-layout,
+  .nav-desktop-logo {
+    display: none !important;
+  }
+  .nav-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
 }

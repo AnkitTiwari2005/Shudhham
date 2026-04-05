@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { supabase, seedProductsIfEmpty } from '@/lib/supabase';
 import ProductCard from '@/components/ProductCard';
-import { Leaf, Truck, RotateCcw, FlaskConical, Heart } from 'lucide-react';
+import { Leaf, Truck, RotateCcw, FlaskConical, Heart, Droplets, Sun, TreePine, BookOpen, ArrowRight, Microscope, Star } from 'lucide-react';
 
 export const revalidate = 0;
 
@@ -48,8 +48,8 @@ export default async function HomePage() {
           maxWidth: '700px',
           boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
         }}>
-          <span style={{ color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.8125rem', marginBottom: '1.5rem', fontWeight: 600 }}>
-            ✦ The Modern Apothecary ✦
+          <span style={{ color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.8125rem', marginBottom: '1.5rem', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+            <Leaf size={14} /> The Modern Apothecary <Leaf size={14} />
           </span>
           <h1 className="heading-display" style={{ maxWidth: '600px', marginBottom: '1.25rem', color: '#ffffff' }}>
             Pure, Intentional Wellness Rooted in Tradition.
@@ -140,7 +140,130 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* ──── Ayurvedic Healing Preview ──── */}
+      <section className="section-padding" style={{ backgroundColor: 'var(--surface-container-low)' }}>
+        <div className="container">
+          <div className="grid-half" style={{ alignItems: 'center' }}>
+            <div style={{
+              backgroundImage: 'url(/ayurvedic-hero.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              aspectRatio: '4/3',
+              borderRadius: 'var(--radius-xl)',
+              boxShadow: 'var(--shadow-xl)',
+              position: 'relative',
+              overflow: 'hidden',
+            }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(44,62,47,0.6), transparent)' }} />
+              <div style={{ position: 'absolute', bottom: '1.5rem', left: '1.5rem', zIndex: 1 }}>
+                <span style={{ backgroundColor: 'var(--accent)', color: 'white', padding: '0.375rem 0.875rem', borderRadius: 'var(--radius-full)', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>5,000+ Years of Wisdom</span>
+              </div>
+            </div>
+            <div>
+              <span style={{ color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.15em', fontSize: '0.75rem', fontWeight: 600 }}>Ayurvedic Healing</span>
+              <h2 className="heading-headline" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>The Ancient Science of Life & Longevity</h2>
+              <p style={{ color: 'var(--on-surface-variant)', lineHeight: 1.7, marginBottom: '2rem' }}>
+                Explore Panchakarma detoxification, Abhyanga oil therapy, Shirodhara, and personalized Dosha-based treatments rooted in the Charaka Samhita.
+              </p>
+              <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+                {[
+                  { icon: <Droplets size={18} />, label: 'Panchakarma' },
+                  { icon: <Sun size={18} />, label: 'Shirodhara' },
+                  { icon: <Heart size={18} />, label: 'Abhyanga' },
+                ].map((item, i) => (
+                  <span key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--primary)', fontWeight: 500 }}>
+                    {item.icon} {item.label}
+                  </span>
+                ))}
+              </div>
+              <Link href="/ayurveda" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)', fontWeight: 600, fontSize: '0.9375rem' }}>
+                Explore Ayurvedic Treatments <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ──── Naturopathy Preview ──── */}
+      <section className="section-padding">
+        <div className="container">
+          <div className="grid-half" style={{ alignItems: 'center' }}>
+            <div style={{ order: 1 }}>
+              <span style={{ color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.15em', fontSize: '0.75rem', fontWeight: 600 }}>Naturopathy</span>
+              <h2 className="heading-headline" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>Heal with the Five Elements of Nature</h2>
+              <p style={{ color: 'var(--on-surface-variant)', lineHeight: 1.7, marginBottom: '2rem' }}>
+                Discover hydrotherapy, mud therapy, diet therapy, and more — natural modalities that activate your body&apos;s innate healing power without side effects.
+              </p>
+              <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+                {[
+                  { icon: <Droplets size={18} />, label: 'Hydrotherapy' },
+                  { icon: <TreePine size={18} />, label: 'Mud Therapy' },
+                  { icon: <Sun size={18} />, label: 'Heliotherapy' },
+                ].map((item, i) => (
+                  <span key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--primary)', fontWeight: 500 }}>
+                    {item.icon} {item.label}
+                  </span>
+                ))}
+              </div>
+              <Link href="/naturopathy" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)', fontWeight: 600, fontSize: '0.9375rem' }}>
+                Explore Naturopathy Treatments <ArrowRight size={16} />
+              </Link>
+            </div>
+            <div style={{
+              backgroundImage: 'url(/naturopathy-hero.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              aspectRatio: '4/3',
+              borderRadius: 'var(--radius-xl)',
+              boxShadow: 'var(--shadow-xl)',
+              position: 'relative',
+              overflow: 'hidden',
+              order: 0,
+            }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(44,62,47,0.6), transparent)' }} />
+              <div style={{ position: 'absolute', bottom: '1.5rem', left: '1.5rem', zIndex: 1 }}>
+                <span style={{ backgroundColor: 'var(--primary)', color: 'white', padding: '0.375rem 0.875rem', borderRadius: 'var(--radius-full)', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Zero Side Effects</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ──── Medicinal Research Preview ──── */}
+      <section style={{
+        backgroundImage: 'url(/research-hero.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(44,62,47,0.85), rgba(30,40,32,0.9))' }} />
+        <div className="container section-padding" style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}>
+            <span style={{ color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.75rem', fontWeight: 600, display: 'block', marginBottom: '1rem' }}>Evidence-Based Healing</span>
+            <h2 className="heading-headline" style={{ color: 'white', marginBottom: '1.5rem' }}>Medicinal Research & Clinical Studies</h2>
+            <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: 1.7, marginBottom: '2rem', fontSize: '1.0625rem' }}>
+              Explore peer-reviewed research validating Ayurvedic compounds, naturopathic therapies, and the science behind traditional healing systems.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '2.5rem', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
+              {[
+                { icon: <BookOpen size={20} />, num: '2,400+', label: 'Studies' },
+                { icon: <Microscope size={20} />, num: '180+', label: 'Clinical Trials' },
+                { icon: <FlaskConical size={20} />, num: '50+', label: 'Institutions' },
+              ].map((stat, i) => (
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem', color: 'white' }}>
+                  <div style={{ color: 'var(--accent)', marginBottom: '0.25rem' }}>{stat.icon}</div>
+                  <span style={{ fontFamily: 'var(--font-noto-serif)', fontSize: '1.5rem', fontWeight: 700 }}>{stat.num}</span>
+                  <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.65)' }}>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+            <Link href="/research" className="btn-primary" style={{ padding: '1rem 2.5rem' }}>
+              Browse Research <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
       <section className="section-padding" style={{ backgroundColor: 'var(--primary)', color: 'white' }}>
         <div className="container text-center">
           <h2 className="heading-headline" style={{ color: 'white', marginBottom: '3rem' }}>What Our Community Says</h2>
@@ -151,7 +274,7 @@ export default async function HomePage() {
               { name: 'Sneha D.', text: 'The Saffron Glow face oil is liquid gold! My skin has never looked better. Absolutely love it.', rating: 5 }
             ].map((t, i) => (
               <div key={i} style={{ padding: '2rem', borderRadius: 'var(--radius-lg)', backgroundColor: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(10px)', textAlign: 'left' }}>
-                <div style={{ color: 'var(--accent)', marginBottom: '1rem', letterSpacing: '2px' }}>{'★'.repeat(t.rating)}</div>
+                <div style={{ color: 'var(--accent)', marginBottom: '1rem', display: 'flex', gap: '2px' }}>{Array.from({ length: t.rating }).map((_, si) => <Star key={si} size={16} fill="currentColor" />)}</div>
                 <p style={{ fontSize: '0.9375rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.9)', marginBottom: '1.5rem' }}>&quot;{t.text}&quot;</p>
                 <p style={{ fontWeight: 600, fontSize: '0.875rem' }}>— {t.name}</p>
               </div>

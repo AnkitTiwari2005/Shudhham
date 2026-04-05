@@ -6,6 +6,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    optimizePackageImports: ["lucide-react", "@supabase/supabase-js", "stripe", "@stripe/stripe-js"],
+  },
   images: {
     remotePatterns: [
       {

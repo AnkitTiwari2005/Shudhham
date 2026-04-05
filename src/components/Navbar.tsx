@@ -18,113 +18,206 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menu when route changes
   useEffect(() => setIsMenuOpen(false), [pathname]);
 
-  const navLinks = [
+  const leftLinks = [
     { name: 'Home', path: '/' },
     { name: 'Shop', path: '/products' },
-    { name: 'Our Story', path: '/about' },
+    { name: 'Ayurveda', path: '/ayurveda' },
+  ];
+
+  const rightLinks = [
+    { name: 'Naturopathy', path: '/naturopathy' },
+    { name: 'Research', path: '/research' },
     { name: 'Contact', path: '/contact' },
   ];
 
+  const allLinks = [...leftLinks, ...rightLinks];
+
+  const linkStyle = (path: string) => ({
+    fontSize: '0.8125rem' as const,
+    fontWeight: pathname === path ? 600 : 400,
+    color: pathname === path ? 'var(--primary)' : 'var(--on-surface-variant)',
+    position: 'relative' as const,
+    padding: '4px 0',
+    transition: 'color 0.2s',
+    whiteSpace: 'nowrap' as const,
+    textTransform: 'uppercase' as const,
+    letterSpacing: '0.05em',
+  });
+
   return (
-    <nav className={`glass-nav ${isScrolled ? 'scrolled' : ''}`} style={{ 
-      position: 'sticky', 
-      top: 0, 
-      zIndex: 1000,
-      transition: 'all 0.3s ease',
-      height: '80px',
-      display: 'flex',
-      alignItems: 'center'
-    }}>
-      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', position: 'relative' }}>
-        
-        {/* Mobile Toggle */}
-        <button 
-          className="mobile-only" 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', zIndex: 1100, padding: '0.25rem' }}
-          aria-label="Toggle Menu"
-        >
-          {isMenuOpen ? (
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          ) : (
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-          )}
-        </button>
+    <>
+      <nav className={`glass-nav ${isScrolled ? 'scrolled' : ''}`} style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
+        transition: 'all 0.3s ease',
+        height: '72px',
+        display: 'flex',
+        alignItems: 'center',
+      }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', width: '100%', position: 'relative' }}>
 
-        {/* Logo */}
-        <Link href="/" style={{ fontSize: '1.5rem', fontFamily: 'var(--font-noto-serif)', color: 'var(--primary)', fontWeight: 700, zIndex: 1100, position: 'absolute', left: '50%', transform: 'translateX(-50%)' }} className="nav-logo">
-          Shudhham
-        </Link>
-        
-        {/* Desktop Links (Left aligned relative to container, pushing logo to center visually if possible, but absolute center is better) */}
-        <div className="desktop-only" style={{ display: 'flex', gap: '2.5rem', alignItems: 'center', flex: 1 }}>
-          {navLinks.map(link => (
-            <Link 
-              key={link.path} 
-              href={link.path} 
-              style={{ 
-                fontSize: '14px',
-                fontWeight: pathname === link.path ? 600 : 400, 
-                color: pathname === link.path ? 'var(--primary)' : 'var(--on-surface-variant)',
-                position: 'relative',
-                padding: '4px 0',
-                transition: 'color 0.2s'
-              }}
+          {/* === MOBILE: hamburger + logo + cart === */}
+          <div className="nav-mobile-bar">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', zIndex: 1100, padding: '0.25rem' }}
+              aria-label="Toggle Menu"
             >
-              {link.name}
-              {pathname === link.path && (
-                <span style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '2px', backgroundColor: 'var(--primary)', borderRadius: '2px' }} />
+              {isMenuOpen ? (
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              ) : (
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
               )}
-            </Link>
-          ))}
-        </div>
+            </button>
 
-        {/* Icons / Auth (Right aligned) */}
-        <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center', flex: 1, justifyContent: 'flex-end', zIndex: 1100 }}>
-          <div className="desktop-only">
-            {user ? (
-              <Link href="/profile" className="btn-secondary" style={{ padding: '0.5rem 1.25rem', fontSize: '14px' }}>
-                Account
-              </Link>
-            ) : (
-              <Link href="/login" className="btn-primary" style={{ padding: '0.5rem 1.25rem', fontSize: '14px' }}>
-                Sign In
-              </Link>
-            )}
+            <Link href="/" style={{
+              fontSize: '1.5rem',
+              fontFamily: 'var(--font-noto-serif)',
+              color: 'var(--primary)',
+              fontWeight: 700,
+              letterSpacing: '0.02em',
+            }}>
+              Shudhham
+            </Link>
+
+            <Link href="/cart" style={{ position: 'relative', display: 'flex', alignItems: 'center', color: 'var(--on-surface)' }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              <span style={{
+                position: 'absolute', top: -6, right: -8,
+                backgroundColor: 'var(--primary)', color: 'white',
+                fontSize: '10px', fontWeight: 700,
+                minWidth: '18px', height: '18px', borderRadius: '9px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 3px'
+              }}>{totalItems > 99 ? '99+' : totalItems}</span>
+            </Link>
           </div>
 
-          <Link href="/cart" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--on-surface)' }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            <span className="cart-badge">{totalItems > 99 ? '99+' : totalItems}</span>
-          </Link>
+          {/* === DESKTOP: left links | centered logo | right links | auth + cart === */}
+
+          {/* === DESKTOP: left side (links) | right side (links + auth/cart) === */}
+          
+          <div className="nav-desktop-layout">
+            
+            {/* Left Zone: flex 1 */}
+            <div className="nav-desktop-left" style={{ justifyContent: 'flex-start' }}>
+              <div className="nav-desktop-left-links">
+                {leftLinks.map(link => (
+                  <Link key={link.path} href={link.path} style={linkStyle(link.path)}>
+                    {link.name}
+                    {pathname === link.path && (
+                      <span style={{ position: 'absolute', bottom: -3, left: 0, width: '100%', height: '2px', backgroundColor: 'var(--primary)' }} />
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Center Logo: Absolute */}
+            <div className="nav-desktop-logo">
+              <Link href="/" style={{
+                fontSize: '24px',
+                fontFamily: "'Playfair Display', var(--font-noto-serif), serif",
+                color: 'var(--primary-dark)',
+                fontWeight: 700,
+                letterSpacing: '0.02em',
+                pointerEvents: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+              }}>
+                Shud<span style={{ color: 'var(--primary)', fontWeight: 600 }}>h</span>ham
+              </Link>
+            </div>
+
+            {/* Right Zone: flex 1 */}
+            <div className="nav-desktop-right" style={{ justifyContent: 'flex-end' }}>
+              <div className="nav-desktop-right-links">
+                {rightLinks.map(link => (
+                  <Link key={link.path} href={link.path} style={linkStyle(link.path)}>
+                    {link.name}
+                    {pathname === link.path && (
+                      <span style={{ position: 'absolute', bottom: -3, left: 0, width: '100%', height: '2px', backgroundColor: 'var(--primary)' }} />
+                    )}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Vertical Divider */}
+              <div style={{ width: '1px', height: '22px', backgroundColor: 'var(--outline-variant)', margin: '0 1rem' }} />
+
+              <div className="nav-desktop-actions">
+                {user ? (
+                  <Link href="/profile" className="btn-secondary" style={{ padding: '0.4rem 1.125rem', fontSize: '12.5px', borderRadius: '50px' }}>
+                    Account
+                  </Link>
+                ) : (
+                  <Link href="/login" className="btn-primary" style={{ padding: '0.4rem 1.25rem', fontSize: '12.5px', borderRadius: '50px', backgroundColor: 'var(--primary)', color: 'white', fontWeight: 600 }}>
+                    Sign In
+                  </Link>
+                )}
+                <Link href="/cart" style={{ position: 'relative', display: 'flex', alignItems: 'center', color: 'var(--primary-dark)', marginLeft: '0.5rem' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                  <span style={{
+                    position: 'absolute', top: -4, right: -8,
+                    backgroundColor: 'var(--primary)', color: 'white',
+                    fontSize: '10px', fontWeight: 700,
+                    minWidth: '16px', height: '16px', borderRadius: '50%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 2px'
+                  }}>{totalItems > 99 ? '99+' : totalItems}</span>
+                </Link>
+              </div>
+            </div>
+
+          </div>
+
         </div>
-      </div>
+      </nav>
 
       {/* Mobile Menu Drawer */}
       {isMenuOpen && (
-        <div className="animate-fade-in" style={{ 
-          position: 'fixed', 
-          top: 0, 
-          left: 0, 
-          width: '100%', 
-          height: '100vh', 
-          backgroundColor: 'var(--surface)', 
+        <div className="animate-fade-in" style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100vh',
+          backgroundColor: 'var(--surface)',
           zIndex: 1050,
           display: 'flex',
           flexDirection: 'column',
-          padding: '100px 2rem 2rem 2rem',
+          padding: '90px 2rem 2rem 2rem',
           overflowY: 'auto'
         }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            {navLinks.map(link => (
-              <Link key={link.path} href={link.path} style={{ fontSize: '1.25rem', fontFamily: 'var(--font-inter)', fontWeight: 500, color: pathname === link.path ? 'var(--primary)' : 'var(--on-surface)', padding: '0.5rem 0' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {allLinks.map(link => (
+              <Link key={link.path} href={link.path} style={{
+                fontSize: '1.125rem',
+                fontFamily: 'var(--font-inter)',
+                fontWeight: pathname === link.path ? 700 : 500,
+                color: pathname === link.path ? 'var(--primary)' : 'var(--on-surface)',
+                padding: '0.75rem 1rem',
+                borderRadius: 'var(--radius-md)',
+                backgroundColor: pathname === link.path ? 'var(--primary-container)' : 'transparent',
+                transition: 'all 0.2s ease'
+              }}>
                 {link.name}
               </Link>
             ))}
-            <div style={{ paddingTop: '1rem', marginTop: '1rem', borderTop: '1px solid var(--outline-variant)' }}>
+            <Link href="/about" style={{
+              fontSize: '1.125rem',
+              fontFamily: 'var(--font-inter)',
+              fontWeight: pathname === '/about' ? 700 : 500,
+              color: pathname === '/about' ? 'var(--primary)' : 'var(--on-surface)',
+              padding: '0.75rem 1rem',
+              borderRadius: 'var(--radius-md)',
+              backgroundColor: pathname === '/about' ? 'var(--primary-container)' : 'transparent',
+              transition: 'all 0.2s ease'
+            }}>
+              Our Story
+            </Link>
+            <div style={{ paddingTop: '1rem', marginTop: '0.5rem', borderTop: '1px solid var(--outline-variant)' }}>
               {user ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', backgroundColor: 'var(--surface-container-low)', padding: '1.25rem', borderRadius: 'var(--radius-lg)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
@@ -140,46 +233,9 @@ export default function Navbar() {
                 <Link href="/login" className="btn-primary" style={{ textAlign: 'center', display: 'block', width: '100%', padding: '1rem' }}>Sign In</Link>
               )}
             </div>
-            
-            <div style={{ marginTop: 'auto', paddingTop: '4rem', color: 'var(--on-surface-variant)', fontSize: '0.875rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span>New Delhi, India</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center', marginTop: '0.5rem' }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                <span>shivskukreja@gmail.com</span>
-              </div>
-            </div>
           </div>
         </div>
       )}
-
-      <style jsx>{`
-        .cart-badge {
-          position: absolute;
-          top: -8px;
-          right: -8px;
-          background-color: var(--primary);
-          color: white;
-          font-size: 11px;
-          font-weight: 700;
-          min-width: 20px;
-          height: 20px;
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0 4px;
-        }
-        @media (max-width: 768px) {
-          .desktop-only { display: none !important; }
-          .nav-logo { position: static !important; transform: none !important; }
-        }
-        @media (min-width: 769px) {
-          .mobile-only { display: none !important; }
-        }
-      `}</style>
-    </nav>
+    </>
   );
 }

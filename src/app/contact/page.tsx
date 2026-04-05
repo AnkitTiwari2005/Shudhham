@@ -116,6 +116,10 @@ export default function ContactPage() {
                       <option value="" disabled>Select Inquiry Type...</option>
                       <option value="order">Order Support</option>
                       <option value="product">Product Question</option>
+                      <option value="ayurveda">Ayurvedic Consultation</option>
+                      <option value="naturopathy">Naturopathy Session</option>
+                      <option value="treatment">Treatment Inquiry</option>
+                      <option value="research">Research Collaboration</option>
                       <option value="wholesale">Wholesale / Partnership</option>
                       <option value="other">Other</option>
                     </select>
