@@ -71,9 +71,11 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div style={{ borderTop: '1px solid rgba(250, 248, 243, 0.1)', paddingTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', fontSize: '0.875rem', color: 'rgba(250, 248, 243, 0.5)' }}>
           <p>© 2024 Shudhham E-Commerce. All rights reserved.</p>
-          <div style={{ display: 'flex', gap: '2rem' }}>
+          <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
             <Link href="/privacy" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy Policy</Link>
             <Link href="/terms" style={{ color: 'inherit', textDecoration: 'none' }}>Terms of Service</Link>
+            <Link href="/disclaimer" style={{ color: 'inherit', textDecoration: 'none' }}>Medical Disclaimer</Link>
+            <Link href="/refund-policy" style={{ color: 'inherit', textDecoration: 'none' }}>Refund & Shipping</Link>
           </div>
         </div>
       </div>
